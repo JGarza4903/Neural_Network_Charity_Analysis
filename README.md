@@ -7,7 +7,7 @@
 * The features for the model include all of the remaining variables in the dataset, such as the applicant's income, employment status, and credit score.
 * Variables that were removed from the input data include "ID" and "NAME", as they do not provide any useful information for the model.
 
-## Compiling, Training, and Evaluating the Model:
+### Compiling, Training, and Evaluating the Model:
 
 * For the neural network model, I selected 80 neurons for the first hidden layer, 30 neurons for the second hidden layer, and 1 neuron for the output layer. An average of 2 neurons per input, the activation function used for all layers is "relu" and "sigmoid" respectively.
 * The model was able to achieve a target performance of around 72% accuracy on the test data. Unfortunately, I was not able to optimize the model to perform better than 75%
