@@ -2,7 +2,7 @@
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-orange)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Wrangling-purple)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Visualization-purple)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-Modeling-yellow)
 
 ## Quick Snapshot
