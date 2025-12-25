@@ -1,17 +1,190 @@
-# Neural_Network_Charity_Analysis
+# Neural Network Charity Analysis
 
-## Results:
-### Data Preprocessing:
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-orange)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Wrangling-purple)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-Modeling-yellow)
 
-* The target variable for the model is "IS_SUCCESSFUL", which indicates whether a loan application was approved or not.
-* The features for the model include all of the remaining variables in the dataset, such as the applicant's income, employment status, and credit score.
-* Variables that were removed from the input data include "ID" and "NAME", as they do not provide any useful information for the model.
+## Quick Snapshot
+I built and evaluated a binary classification model using a deep learning neural network to predict whether a charitable organization’s funding outcome is likely to be **successful** based on historical application data. The final model reached ~72% accuracy, and I documented what limited performance improvements during optimization attempts.
 
-### Compiling, Training, and Evaluating the Model:
+## Table of Contents
+- Repo Structure
+- Objective
+- Dataset Overview
+- Build Journey
+  - Phase 1 – Data Preprocessing
+  - Phase 2 – Baseline Neural Network
+  - Phase 3 – Optimization Attempts
+- Model Scorecard
+- How to Run Locally
+- Evidence Gallery
+- Key Takeaways
+- Next Steps
 
-* For the neural network model, I selected 80 neurons for the first hidden layer, 30 neurons for the second hidden layer, and 1 neuron for the output layer. An average of 2 neurons per input, the activation function used for all layers is "relu" and "sigmoid" respectively.
-* The model was able to achieve a target performance of around 72% accuracy on the test data. Unfortunately, I was not able to optimize the model to perform better than 75%
-* To try and increase model performance, I used the early stopping method and optimized the number of neurons and layers, and also used different activation functions. I even tried using RandomForestClassifier and Logistic Regression but not able to achieve results.
+---
 
-## Summary:
-The deep learning model created for AlphabetSoup was able to predict loan application success with an accuracy of around 72%. While this is an ok performance, there may be room for improvement by trying other models such as Random Forest, or by gathering more data to train the model on. Overall, this model can be a useful tool for AlphabetSoup to predict the success of loan applications.
+## Repo Structure
+Suggested layout (aligns with how I document my other portfolio repos):
+
+- Challenge/
+  - (course deliverables / required notebook assets)
+- notebooks/
+  - 01_preprocessing.ipynb
+  - 02_baseline_model.ipynb
+  - 03_optimized_model.ipynb
+- data/
+  - charity_data.csv
+- models/
+  - AlphabetSoupCharity.h5
+  - AlphabetSoupCharity_Optimized.h5
+- reports/
+  - metrics_baseline.json
+  - metrics_optimized.json
+  - confusion_matrix.png
+  - roc_curve.png
+- requirements.txt
+- README.md
+
+---
+
+## Objective
+Build a model that predicts whether a charity funding application will be **successful** (`IS_SUCCESSFUL`) using historical structured data, then attempt to improve performance through neural network tuning and training strategies.
+
+---
+
+## Dataset Overview
+- Target:
+  - `IS_SUCCESSFUL` (binary outcome)
+- Features:
+  - All remaining columns after removing non-predictive identifiers (example: organization IDs / names)
+- Notes:
+  - Categorical features require encoding (one-hot)
+  - Numeric features benefit from scaling
+  - Some categories can be too sparse and may need bucketing to reduce noise
+
+---
+
+## Build Journey
+
+<details>
+<summary><strong>Phase 1 – Data Preprocessing</strong></summary>
+
+### Objective
+Prepare the dataset for model training by defining the target, selecting usable features, and transforming the data into a numeric format suitable for a neural network.
+
+### Actions Taken
+- Identified the target variable: `IS_SUCCESSFUL`
+- Removed identifier fields that do not help prediction (example: IDs / names)
+- Encoded categorical columns (one-hot encoding)
+- Scaled numeric columns where appropriate
+- Split data into training and testing sets
+
+### Output
+A clean training matrix ready for TensorFlow modeling.
+
+</details>
+
+<details>
+<summary><strong>Phase 2 – Baseline Neural Network</strong></summary>
+
+### Objective
+Create an initial deep learning model and establish a baseline performance level.
+
+### Model Design
+- Hidden Layer 1: 80 neurons (ReLU)
+- Hidden Layer 2: 30 neurons (ReLU)
+- Output Layer: 1 neuron (Sigmoid)
+
+### Result
+- Test accuracy: ~72%
+- Target goal (75%) was not reached
+
+</details>
+
+<details>
+<summary><strong>Phase 3 – Optimization Attempts</strong></summary>
+
+### Objective
+Improve model generalization and performance through tuning and training adjustments.
+
+### Actions Taken
+- Adjusted number of layers and neurons
+- Tested different activation functions
+- Applied early stopping during training
+- Compared results against traditional ML models (e.g., Random Forest / Logistic Regression)
+
+### Outcome
+Performance improvements were limited and did not exceed the 75% target threshold.
+
+</details>
+
+---
+
+## Model Scorecard
+| Model Version | Key Changes | Result |
+|---|---|---|
+| Baseline NN | 2 hidden layers (80 / 30), ReLU + Sigmoid | ~72% accuracy |
+| Optimized NN | Architecture + training tweaks (early stopping, etc.) | Did not exceed 75% |
+
+Note: I’m intentionally documenting what *didn’t* work as well as what did — that’s part of doing real technical work.
+
+---
+
+## How to Run Locally
+
+### Option A: Run via Jupyter Notebook
+1. Clone the repo:
+   git clone https://github.com/JGarza4903/Neural_Network_Charity_Analysis.git
+2. Create and activate a virtual environment:
+   python -m venv .venv
+   .venv\Scripts\activate
+3. Install dependencies:
+   pip install -r requirements.txt
+4. Launch Jupyter:
+   jupyter lab
+5. Open the notebooks in order:
+   - 01_preprocessing.ipynb
+   - 02_baseline_model.ipynb
+   - 03_optimized_model.ipynb
+
+### Option B: Load the saved model
+If you keep the `.h5` model file in `models/`, you can load it in Python:
+- Use TensorFlow’s `tf.keras.models.load_model()` and run predictions against preprocessed input.
+
+---
+
+## Evidence Gallery
+Placeholders for recruiter-friendly proof (add these as you capture them):
+- reports/confusion_matrix.png
+- reports/roc_curve.png
+- Training history plot (loss/accuracy curves)
+- Notebook screenshots of final evaluation output
+
+---
+
+## Key Takeaways
+- Neural networks can model complex nonlinear relationships, but performance is heavily influenced by:
+  - preprocessing quality
+  - category sparsity from one-hot encoding
+  - overfitting risk
+  - hyperparameter choices
+- A “near target” accuracy isn’t a failure — the value is in showing:
+  - clean preprocessing
+  - repeatable experimentation
+  - honest evaluation and iteration
+
+---
+
+## Next Steps
+If I revisit this project, I will:
+- Add a true baseline scorecard (LogReg first, then NN)
+- Improve feature engineering (bucketing rare categories more deliberately)
+- Test regularization (dropout, L2) and learning-rate scheduling
+- Compare additional classifiers (XGBoost / Gradient Boosting)
+- Track experiments in a simple run log (hyperparams → metrics)
+
+---
+
+## About
+This repo is part of my portfolio, showing hands-on ML work from preprocessing through model tuning, with an emphasis on reproducible experimentation and honest evaluation.
