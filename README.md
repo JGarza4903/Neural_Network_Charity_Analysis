@@ -2,164 +2,129 @@
 
 ![Python](https://img.shields.io/badge/Python-3.x-blue)
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-Deep%20Learning-orange)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Visualization-purple)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Wrangling-purple)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-Modeling-yellow)
 
 ## Quick Snapshot
-I built and evaluated a binary classification model using a deep learning neural network to predict whether a charitable organization’s funding outcome is likely to be **successful** based on historical application data. The final model reached ~72% accuracy, and I documented what limited performance improvements during optimization attempts.
-
-## Table of Contents
-- Repo Structure
-- Objective
-- Dataset Overview
-- Build Journey
-  - Phase 1 – Data Preprocessing
-  - Phase 2 – Baseline Neural Network
-  - Phase 3 – Optimization Attempts
-- Model Scorecard
-- How to Run Locally
-- Evidence Gallery
-- Key Takeaways
+This project applies a deep learning neural network to predict whether a charitable organization’s funding application will be successful based on historical application data. The work demonstrates an end-to-end machine learning workflow, including data preprocessing, neural network design, model evaluation, and documented optimization attempts.
 
 ---
 
 ## Objective
-Build a model that predicts whether a charity funding application will be **successful** (`IS_SUCCESSFUL`) using historical structured data, then attempt to improve performance through neural network tuning and training strategies.
+Build and evaluate a binary classification model that predicts funding success (IS_SUCCESSFUL) using TensorFlow and Keras. Establish a baseline neural network, attempt to improve performance through optimization, and analyze why accuracy gains plateaued.
 
 ---
 
 ## Dataset Overview
-- Target:
-  - `IS_SUCCESSFUL` (binary outcome)
-- Features:
-  - All remaining columns after removing non-predictive identifiers (example: organization IDs / names)
-- Notes:
-  - Categorical features require encoding (one-hot)
-  - Numeric features benefit from scaling
-  - Some categories can be too sparse and may need bucketing to reduce noise
+
+**Target variable**
+- IS_SUCCESSFUL — indicates whether an organization used funding effectively.
+
+**Removed columns**
+- EIN  
+- NAME  
+
+These identifier fields were removed because they do not contribute predictive value.
+
+**Feature categories**
+- Application metadata: APPLICATION_TYPE, AFFILIATION, USE_CASE, ORGANIZATION  
+- Organizational classification: CLASSIFICATION, STATUS  
+- Financial context: INCOME_AMT, ASK_AMT  
+- Special conditions: SPECIAL_CONSIDERATIONS  
+
+Categorical features were transformed using one-hot encoding, while numerical values were scaled prior to training the neural network.
 
 ---
 
 ## Build Journey
 
-<details>
-<summary><strong>Phase 1 – Data Preprocessing</strong></summary>
+### Phase 1 — Data Preprocessing
+**Goal:** Prepare raw application data for modeling.
 
-### Objective
-Prepare the dataset for model training by defining the target, selecting usable features, and transforming the data into a numeric format suitable for a neural network.
+**Actions taken**
+- Defined IS_SUCCESSFUL as the prediction target.
+- Dropped non-predictive identifier columns.
+- Binned rare categorical values to reduce dimensionality and noise.
+- Applied one-hot encoding to categorical features.
+- Scaled numerical inputs.
+- Split the dataset into training and testing subsets.
 
-### Actions Taken
-- Identified the target variable: `IS_SUCCESSFUL`
-- Removed identifier fields that do not help prediction (example: IDs / names)
-- Encoded categorical columns (one-hot encoding)
-- Scaled numeric columns where appropriate
-- Split data into training and testing sets
+---
 
-### Output
-A clean training matrix ready for TensorFlow modeling.
+### Phase 2 — Baseline Neural Network
+**Model architecture**
+- Input layer matched to the encoded feature set
+- Hidden layer 1: 80 neurons using ReLU activation
+- Hidden layer 2: 30 neurons using ReLU activation
+- Output layer: 1 neuron using Sigmoid activation
 
-</details>
+**Training configuration**
+- Loss function: binary cross-entropy  
+- Optimizer: Adam  
+- Evaluation metric: accuracy  
 
-<details>
-<summary><strong>Phase 2 – Baseline Neural Network</strong></summary>
+**Result**
+The baseline model achieved approximately 72% accuracy, which did not meet the 75% target threshold.
 
-### Objective
-Create an initial deep learning model and establish a baseline performance level.
+---
 
-### Model Design
-- Hidden Layer 1: 80 neurons (ReLU)
-- Hidden Layer 2: 30 neurons (ReLU)
-- Output Layer: 1 neuron (Sigmoid)
+### Phase 3 — Optimization Attempts
+**Optimization strategies**
+- Adjusted the number of layers and neurons.
+- Tested alternative activation functions.
+- Binned continuous variables such as ASK_AMT.
+- Applied early stopping to reduce overfitting.
 
-### Result
-- Test accuracy: ~72%
-- Target goal (75%) was not reached
-
-</details>
-
-<details>
-<summary><strong>Phase 3 – Optimization Attempts</strong></summary>
-
-### Objective
-Improve model generalization and performance through tuning and training adjustments.
-
-### Actions Taken
-- Adjusted number of layers and neurons
-- Tested different activation functions
-- Applied early stopping during training
-- Compared results against traditional ML models (e.g., Random Forest / Logistic Regression)
-
-### Outcome
-Performance improvements were limited and did not exceed the 75% target threshold.
-
-</details>
+**Outcome**
+Despite multiple tuning strategies, performance improvements were limited and did not exceed the target accuracy.
 
 ---
 
 ## Model Scorecard
-| Model Version | Key Changes | Result |
-|---|---|---|
-| Baseline NN | 2 hidden layers (80 / 30), ReLU + Sigmoid | ~72% accuracy |
-| Optimized NN | Architecture + training tweaks (early stopping, etc.) | Did not exceed 75% |
 
-Note: I’m intentionally documenting what *didn’t* work as well as what did — that’s part of doing real technical work.
+- Baseline Neural Network  
+  Two hidden layers (80 / 30 neurons)  
+  Test accuracy: ~72%
+
+- Optimized Variants  
+  Architectural and training adjustments  
+  Test accuracy: below 75%
 
 ---
 
 ## How to Run Locally
 
-### Option A: Run via Jupyter Notebook
-1. Clone the repo:
-   git clone https://github.com/JGarza4903/Neural_Network_Charity_Analysis.git
-2. Create and activate a virtual environment:
-   python -m venv .venv
-   .venv\Scripts\activate
-3. Install dependencies:
-   pip install -r requirements.txt
-4. Launch Jupyter:
-   jupyter lab
-5. Open the notebooks in order:
-   - 01_preprocessing.ipynb
-   - 02_baseline_model.ipynb
-   - 03_optimized_model.ipynb
-
-### Option B: Load the saved model
-If you keep the `.h5` model file in `models/`, you can load it in Python:
-- Use TensorFlow’s `tf.keras.models.load_model()` and run predictions against preprocessed input.
+1. Clone the repository from GitHub.
+2. Create and activate a Python virtual environment.
+3. Install required dependencies from the requirements file.
+4. Launch Jupyter Notebook or Jupyter Lab.
+5. Run the notebooks sequentially, starting with preprocessing and ending with optimization.
 
 ---
 
 ## Evidence Gallery
-Placeholders for recruiter-friendly proof (add these as you capture them):
-- reports/confusion_matrix.png
-- reports/roc_curve.png
-- Training history plot (loss/accuracy curves)
-- Notebook screenshots of final evaluation output
+(Visual evidence to be added as the project evolves.)
+- Confusion matrix
+- ROC curve
+- Training accuracy and loss trends
+- Notebook outputs showing final evaluation metrics
 
 ---
 
 ## Key Takeaways
-- Neural networks can model complex nonlinear relationships, but performance is heavily influenced by:
-  - preprocessing quality
-  - category sparsity from one-hot encoding
-  - overfitting risk
-  - hyperparameter choices
-- A “near target” accuracy isn’t a failure — the value is in showing:
-  - clean preprocessing
-  - repeatable experimentation
-  - honest evaluation and iteration
+- Neural networks can struggle with heavily encoded categorical datasets without extensive feature engineering.
+- Optimization does not guarantee improved performance, and documenting limitations is part of real-world machine learning.
+- Establishing baselines and tracking experimentation decisions strengthens technical credibility.
 
 ---
 
 ## Next Steps
-If I revisit this project, I will:
-- Add a true baseline scorecard (LogReg first, then NN)
-- Improve feature engineering (bucketing rare categories more deliberately)
-- Test regularization (dropout, L2) and learning-rate scheduling
-- Compare additional classifiers (XGBoost / Gradient Boosting)
-- Track experiments in a simple run log (hyperparams → metrics)
+- Introduce traditional machine learning baselines such as Logistic Regression or Random Forest.
+- Explore class imbalance handling techniques.
+- Apply regularization strategies including dropout or L2 penalties.
+- Track experiments using tools such as TensorBoard or MLflow.
 
 ---
 
 ## About
-This repo is part of my portfolio, showing hands-on ML work from preprocessing through model tuning, with an emphasis on reproducible experimentation and honest evaluation.
+This repository is part of my technical portfolio, showcasing applied machine learning work with an emphasis on reproducibility, evaluation, and honest documentation of results.
