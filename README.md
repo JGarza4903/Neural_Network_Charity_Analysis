@@ -106,8 +106,10 @@ Despite multiple tuning strategies, performance improvements were limited and di
 (Visual evidence to be added as the project evolves.)
 - Confusion matrix
 - ROC curve
+[Jupyter Notebook](Challenge/AlphabetSoupCharity.ipynb)
 - Training accuracy and loss trends
 - Notebook outputs showing final evaluation metrics
+[Jupyter Notebook](Challenge/AlphabetSoupCharity_Optimization.ipynb)
 
 ---
 
