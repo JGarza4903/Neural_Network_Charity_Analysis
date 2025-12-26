@@ -116,15 +116,5 @@ Despite multiple tuning strategies, performance improvements were limited and di
 - Optimization does not guarantee improved performance, and documenting limitations is part of real-world machine learning.
 - Establishing baselines and tracking experimentation decisions strengthens technical credibility.
 
----
-
-## Next Steps
-- Introduce traditional machine learning baselines such as Logistic Regression or Random Forest.
-- Explore class imbalance handling techniques.
-- Apply regularization strategies including dropout or L2 penalties.
-- Track experiments using tools such as TensorBoard or MLflow.
-
----
-
 ## About
 This repository is part of my technical portfolio, showcasing applied machine learning work with an emphasis on reproducibility, evaluation, and honest documentation of results.
